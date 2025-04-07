@@ -1,0 +1,42 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master # or your default branch
+
+permissions:
+  id-token: write
+  pages: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        working-directory: Bewertungsraster
+        run: npm ci
+      - name: Build the Svelte app
+        working-directory: Bewertungsraster
+        run: npm run build
+      - name: Upload static files as artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: Bewertungsraster/dist/
+        id: deployment
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
