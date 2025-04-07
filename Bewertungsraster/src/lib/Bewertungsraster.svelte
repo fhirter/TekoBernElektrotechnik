@@ -38,7 +38,7 @@
             <legend>{field.label}</legend>
             {#each field.inputs as input}
                 <label for="{field.label}-{input.label}">
-                    {input.label}
+                    {input.label} (max. {input.max})
                 </label>
                 <input
                         id="{field.label}-{input.label}"
