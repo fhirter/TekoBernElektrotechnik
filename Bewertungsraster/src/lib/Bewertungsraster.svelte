@@ -58,5 +58,5 @@
         </fieldset>
     {/each}
 
-    <button type="submit">Bewerten</button>
+    <button type="submit">Bewertungsblatt laden</button>
 </form>
