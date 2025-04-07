@@ -19,11 +19,13 @@ function promptDownload(output) {
 
 export function render(data, max) {
 
+    const name = data.name;
+    delete data.name;
+
     const {fields, punkte} = convertData(data, max);
 
     const note = calculateNote(punkte, max);
 
-    const name = data.name;
 
     const view = {
         title: "Bewertungsraster",
