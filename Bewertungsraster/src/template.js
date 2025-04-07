@@ -7,11 +7,10 @@ export const template = `
 {{#sections}}
 ## {{section}}
 
-{{#inputs}}
 | Bewertungspunkt | Punkte | Kommentar |
 |-----------------|--------|-----------|
+{{#inputs}}
 | {{label}} | {{value.punkte}} | {{value.kommentar}} |
-
 {{/inputs}}
 
 {{/sections}}
