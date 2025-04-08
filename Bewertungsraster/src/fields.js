@@ -48,12 +48,12 @@ export const fields = [
                 "max": 10
             },
             {
-                "label": "Ergebnisse",
+                "label": "Variantenentscheide",
                 "min": 0,
                 "max": 10
             },
             {
-                "label": "Variantenentscheide",
+                "label": "Ergebnisse",
                 "min": 0,
                 "max": 10
             }
