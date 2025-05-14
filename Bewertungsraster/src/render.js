@@ -78,11 +78,11 @@ function sumPunkte(obj) {
   return total;
 }
 
-export function totalMaxSum(fields) {
+export function getMaxPunkte(fields) {
     return fields.reduce((acc, field) => {
+        if (field?.bonus === true) return acc;
         // Use reduce on the `inputs` array to sum up the `max` values for each field
         const fieldMaxSum = field.inputs.reduce((sum, input) => {
-            console.log(input.max);
             return sum + input.max
         }, 0);
         return acc + fieldMaxSum;

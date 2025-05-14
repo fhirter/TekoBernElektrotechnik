@@ -181,6 +181,7 @@ export const fields = [
     },
     {
         "label": "Bonus",
+        "bonus": true,
         "inputs": [
             {
                 "label": "Schwierigkeitsgrad",

@@ -2,9 +2,9 @@
     import {createForm} from 'felte';
 
     import {fields} from "../fields.js";
-    import {render, totalMaxSum} from "../render.js";
+    import {render, getMaxPunkte} from "../render.js";
 
-    const max = totalMaxSum(fields);
+    const max = getMaxPunkte(fields);
 
     const {form, data} = createForm({
         onSubmit: (values) => {
