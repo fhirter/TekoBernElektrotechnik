@@ -1,0 +1,4 @@
+fileignoreconfig:
+- filename: Bewertungsraster/package-lock.json
+  checksum: 88d84fb8a65f63c32b6dd4748565f52df02c7911fd29b6b70fe66f54664e4491
+version: ""
