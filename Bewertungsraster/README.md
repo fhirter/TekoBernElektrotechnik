@@ -3,3 +3,4 @@
 ## Todo
 
 - persist in browser storage
+- tests

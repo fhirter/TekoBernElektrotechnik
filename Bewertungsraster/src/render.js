@@ -17,15 +17,15 @@ function promptDownload(output) {
     URL.revokeObjectURL(url);
 }
 
-export function render(data, max) {
+export function render(data) {
 
     const name = data.name;
     delete data.name;
 
-    const {fields, punkte} = convertData(data, max);
-
+    const fields= convertData(data);
+    const max = getMaxPunkte(fields);
+    const punkte = sumPunkte(fields);
     const note = calculateNote(punkte, max);
-
 
     const view = {
         title: "Bewertungsraster",
@@ -41,7 +41,7 @@ export function render(data, max) {
 }
 
 
-function convertData(data) {
+export function convertData(data) {
     const fields = Object.entries(data).map(([sectionLabel, inputs]) => {
         return {
             section: sectionLabel,
@@ -54,15 +54,10 @@ function convertData(data) {
         }
     });
 
-    const punkte = sumPunkte(fields);
-
-    return {
-        punkte,
-        fields
-    };
+    return fields;
 }
 
-function sumPunkte(obj) {
+export function sumPunkte(obj) {
   let total = 0;
 
   for (const key in obj) {
@@ -89,6 +84,6 @@ export function getMaxPunkte(fields) {
     }, 0);
 }
 
-function calculateNote(punkte, max) {
-    return Math.round((punkte / max * 5 + 1)*10)/10;
+export function calculateNote(punkte, max) {
+    return Math.min(6, Math.round((punkte / max * 5 + 1)*10)/10);
 }
