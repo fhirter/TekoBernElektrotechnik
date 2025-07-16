@@ -1,14 +1,15 @@
 import {template} from "./template.js";
 import Mustache from "mustache";
+import {fields} from "./fields.js";
 
-function promptDownload(output) {
+function promptDownload(output, filename) {
     const blob = new Blob([output], {type: "text/plain"});
     const url = URL.createObjectURL(blob);
 
     // Create a temporary anchor element for download
     const a = document.createElement("a");
     a.href = url;
-    a.download = "bewertungsraster.md"; // Sets the filename
+    a.download = filename; // Sets the filename
     document.body.appendChild(a);
     a.click();
 
@@ -22,22 +23,25 @@ export function render(data) {
     const name = data.name;
     delete data.name;
 
-    const fields= convertData(data);
+    const dataFields= convertData(data);
     const max = getMaxPunkte(fields);
-    const punkte = sumPunkte(fields);
+    const punkte = sumPunkte(dataFields);
     const note = calculateNote(punkte, max);
 
+    console.log(dataFields)
+
     const view = {
-        title: "Bewertungsraster",
+        title: `Bewertungsraster`,
         name,
         note,
         punkte,
         max,
-        sections: fields,
+        sections: dataFields,
     }
 
     const output = Mustache.render(template, view);
-    promptDownload(output);
+    const filename = `Bewertungsraster_Diplomarbeit_${name}.md`
+    promptDownload(output, filename);
 }
 
 
