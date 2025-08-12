@@ -1,19 +1,28 @@
 // @ts-check
 import {test, expect} from '@playwright/test';
 
+const url = 'http://localhost:5173/TekoBernElektrotechnik/';
+
 test('add student', async ({page}) => {
-    await page.goto('http://localhost:5173/TekoBernElektrotechnik/');
-    await page.getByRole('textbox', { name: 'Name' }).click();
-    await page.getByRole('textbox', { name: 'Name' }).click();
+    await page.goto(url);
     await page.getByRole('textbox', { name: 'Name' }).fill('John Doe');
     await page.getByRole('button', { name: 'Hinzufügen' }).click();
+    await page.getByRole('textbox', { name: 'Name' }).fill('Jane Doe');
+    await page.getByRole('button', { name: 'Hinzufügen' }).click();
+    await page.getByLabel('Student auswählen').selectOption('John Doe');
+    await page.getByRole('button', { name: 'Laden', exact: true}).click();
     await expect(page.getByRole('heading')).toContainText('Bewertungsraster TEL John Doe');
+    await page.getByLabel('Student auswählen').selectOption('Jane Doe');
+    await page.getByRole('button', { name: 'Laden', exact: true }).click();
+    await expect(page.getByRole('heading')).toContainText('Bewertungsraster TEL Jane Doe');
     await page.reload();
-
+    await page.getByLabel('Student auswählen').selectOption('Jane Doe');
+    await page.getByRole('button', { name: 'Laden', exact: true }).click();
+    await expect(page.getByRole('heading')).toContainText('Bewertungsraster TEL Jane Doe');
 });
 
 test('fill form', async ({page}) => {
-    await page.goto('http://localhost:5173/TekoBernElektrotechnik/');
+    await page.goto(url);
     await page.getByRole('textbox', {name: 'Name'}).fill('John Doe');
     await page.getByRole('button', {name: 'Hinzufügen'}).click();
     await page.getByRole('spinbutton', {name: 'Vollständigkeit (max. 10)'}).fill('10');

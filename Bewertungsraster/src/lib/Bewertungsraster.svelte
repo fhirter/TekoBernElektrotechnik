@@ -64,11 +64,12 @@
     }
 
     function selectBewertungsraster(event) {
-        const targetName = event.target.value;
+        event.preventDefault();
+        const inputField = event.target.previousElementSibling;
+        const targetName = inputField.value;
         const bewertungsraster = allBewertungsraster.find((bewertungsraster) => bewertungsraster.name === targetName)
         name = bewertungsraster.name;
         $formData = bewertungsraster.data;
-        console.log($formData)
     }
 
     function loadAllBewertungsrasterFromStorage() {
@@ -107,11 +108,12 @@
         <button onclick={addStudent}>Hinzufügen</button>
 
         <label for="student">Student auswählen</label>
-        <select id="student" name="name" onchange={selectBewertungsraster}>
+        <select id="student" name="name">
             {#each allBewertungsraster as bewertung}
                 <option>{bewertung.name}</option>
             {/each}
         </select>
+        <button onclick={selectBewertungsraster}>Laden</button>
     </form>
 
     <form class="bewertung" use:form>
