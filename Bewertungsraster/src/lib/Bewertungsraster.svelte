@@ -95,54 +95,57 @@
     }
 </script>
 
-<h1>Bewertungsraster TEL {name}</h1>
-<div>
-    <ul>
-        <li>Note: <strong>{$punkte.note}</strong></li>
-        <li>Punkte: {$punkte.punkte}/{$punkte.max}</li>
-    </ul>
+<form class="student">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name">
+    <button onclick={addStudent}>Hinzufügen</button>
 
-    <form class="student">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name">
-        <button onclick={addStudent}>Hinzufügen</button>
-
-        <label for="student">Student auswählen</label>
-        <select id="student" name="name">
-            {#each allBewertungsraster as bewertung}
-                <option>{bewertung.name}</option>
-            {/each}
-        </select>
-        <button onclick={selectBewertungsraster}>Laden</button>
-    </form>
-
-    <form class="bewertung" use:form>
-        {#each fields as field}
-            <fieldset>
-                <legend>{field.label}</legend>
-                {#each field.inputs as input}
-                    <label for="{field.label}-{input.label}">
-                        {input.label} <br> (max. {input.max})
-                    </label>
-                    <input
-                            id="{field.label}-{input.label}"
-                            name="{field.label}.{input.label}.punkte"
-                            type="number"
-                            min={input.min}
-                            max={input.max}
-                            step="1"
-                            value="{$formData?.[field.label]?.[input.label]?.punkte}">
-                    <label for="{field.label}-{input.label}-kommentar">
-                        Kommentar
-                    </label>
-                    <textarea
-                            id="{field.label}-{input.label}-kommentar"
-                            name="{field.label}.{input.label}.kommentar"
-                    >{$formData?.[field.label]?.[input.label]?.kommentar}</textarea>
-                {/each}
-            </fieldset>
+    <label for="student">Student auswählen</label>
+    <select id="student" name="name">
+        {#each allBewertungsraster as bewertung}
+            <option>{bewertung.name}</option>
         {/each}
+    </select>
+    <button onclick={selectBewertungsraster}>Laden</button>
+</form>
 
-        <button type="submit">Bewertungsblatt laden</button>
-    </form>
-</div>
+{#if name !== ""}
+    <h1>Bewertungsraster TEL {name}</h1>
+    <div>
+        <ul>
+            <li>Note: <strong>{$punkte.note}</strong></li>
+            <li>Punkte: {$punkte.punkte}/{$punkte.max}</li>
+        </ul>
+
+
+        <form class="bewertung" use:form>
+            {#each fields as field}
+                <fieldset>
+                    <legend>{field.label}</legend>
+                    {#each field.inputs as input}
+                        <label for="{field.label}-{input.label}">
+                            {input.label} <br> (max. {input.max})
+                        </label>
+                        <input
+                                id="{field.label}-{input.label}"
+                                name="{field.label}.{input.label}.punkte"
+                                type="number"
+                                min={input.min}
+                                max={input.max}
+                                step="1"
+                                value="{$formData?.[field.label]?.[input.label]?.punkte}">
+                        <label for="{field.label}-{input.label}-kommentar">
+                            Kommentar
+                        </label>
+                        <textarea
+                                id="{field.label}-{input.label}-kommentar"
+                                name="{field.label}.{input.label}.kommentar"
+                        >{$formData?.[field.label]?.[input.label]?.kommentar}</textarea>
+                    {/each}
+                </fieldset>
+            {/each}
+
+            <button type="submit">Bewertungsblatt laden</button>
+        </form>
+    </div>
+{/if}
