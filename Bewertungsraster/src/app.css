@@ -54,6 +54,9 @@ label {
   width: 3rem;
   height: 3rem;
 }
+.stundent input {
+    width: 10rem;
+}
 
 form textarea {
   width: 100%;
