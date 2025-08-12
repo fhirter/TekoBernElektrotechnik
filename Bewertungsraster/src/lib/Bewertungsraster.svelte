@@ -46,11 +46,6 @@
         }
     })
 
-    window.addEventListener("beforeunload", (event) => {
-        event.preventDefault();
-        event.returnValue = true;
-    });
-
     function addStudent(event) {
         event.preventDefault();
         const inputField = event.target.previousElementSibling;
