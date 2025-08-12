@@ -31,6 +31,7 @@
 
     function loadData() {
         const data = window.localStorage.getItem(`bewertungsraster-tel`);
+        if (data === null) return [];
         return JSON.parse(data);
     }
 
