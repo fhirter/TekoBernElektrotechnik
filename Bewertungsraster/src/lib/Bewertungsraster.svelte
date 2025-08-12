@@ -17,7 +17,7 @@
 
     let {form, data: formData} = createForm({
         onSubmit: (values) => {
-            render($formData)
+            render($formData, name)
         },
     })
 

@@ -18,11 +18,7 @@ function promptDownload(output, filename) {
     URL.revokeObjectURL(url);
 }
 
-export function render(data) {
-
-    const name = data.name;
-    delete data.name;
-
+export function render(data, name) {
     const dataFields= convertData(data);
     const max = getMaxPunkte(fields);
     const punkte = sumPunkte(dataFields);
