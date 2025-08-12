@@ -35,6 +35,7 @@
     }
 
     data.subscribe((data) => {
+        // store current dataset in array
         const entry = allBewertungsraster.find((bewertungsraster) => bewertungsraster.name === name);
         if (typeof entry !== "undefined") {
             entry.data = data;
