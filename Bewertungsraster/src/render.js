@@ -66,7 +66,7 @@ export function sumPunkte(obj) {
       total += sumPunkte(obj[key]);
     } else if (key === "punkte" && obj[key] !== null) {
       // Add "punkte" value if not null
-      total += obj[key];
+      total += parseFloat(obj[key]);
     }
   }
 

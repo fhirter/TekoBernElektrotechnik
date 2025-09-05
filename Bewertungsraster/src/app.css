@@ -41,7 +41,7 @@ fieldset {
   border-color: light-dark(var(--dark-color), var(--light-color));
 
   display: grid;
-  grid-template-columns: 15rem 3rem 7rem 20rem;
+  grid-template-columns: 15rem 10rem 7rem 20rem;
   gap: 2rem;
 }
 

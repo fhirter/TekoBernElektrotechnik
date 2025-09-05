@@ -11,6 +11,20 @@
     } from "../render.js";
     import {derived} from "svelte/store";
 
+    const bewertungskriterien = [
+        {"punkte": 0, "bezeichnung": "nicht vorhanden"},
+        {"punkte": 1, "bezeichnung": "kaum vorhanden"},
+        {"punkte": 2, "bezeichnung": "deutlich ungenügend"},
+        {"punkte": 3, "bezeichnung": "ungenügend"},
+        {"punkte": 4, "bezeichnung": "knapp genügend"},
+        {"punkte": 5, "bezeichnung": "genügend"},
+        {"punkte": 6, "bezeichnung": "deutliche Mängel"},
+        {"punkte": 7, "bezeichnung": "grössere Mängel"},
+        {"punkte": 8, "bezeichnung": "kleine Mängel"},
+        {"punkte": 9, "bezeichnung": "minimale Mängel"},
+        {"punkte": 10, "bezeichnung": "tadellos"}
+    ]
+
     const max = getMaxPunkte(fields);
 
     let name = $state("");
@@ -121,14 +135,17 @@
                         <label for="{field.label}-{input.label}">
                             {input.label} <br> (max. {input.max})
                         </label>
-                        <input
+                        <select
                                 id="{field.label}-{input.label}"
                                 name="{field.label}.{input.label}.punkte"
-                                type="number"
-                                min={input.min}
-                                max={input.max}
-                                step="1"
-                                value="{$formData?.[field.label]?.[input.label]?.punkte}">
+                        >
+                            {#each bewertungskriterien as bewertungskriterium}
+                                <option
+                                        value={bewertungskriterium.punkte*input.max/10}
+                                        selected={parseFloat($formData?.[field.label]?.[input.label]?.punkte) === bewertungskriterium.punkte*input.max/10}
+                                >{bewertungskriterium.bezeichnung}</option>
+                            {/each}
+                        </select>
                         <label for="{field.label}-{input.label}-kommentar">
                             Kommentar
                         </label>
