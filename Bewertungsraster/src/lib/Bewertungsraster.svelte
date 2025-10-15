@@ -106,13 +106,17 @@
 
 <details>
     <summary>Informationen</summary>
-    Unter "Name" den Namen des Studenten / der Studentin eingeben und "Hinzufügen" klicken.
-    Der erfasste Namen kann nun im Dropdown rechts ausgewählt werden und das Bewertungsraster geladen werden.
-
-    Wenn die Bewertung abgeschlossen ist, kann mit dem Button "Bewertungsblatt generieren" ganz unten das
-    Markdown-Dokument generiert werden.
-
-    Alle Daten werden ausschliesslich lokal im Browser gespeichert. Ein zentrales Backup wird nicht erstellt.
+    <p>
+        Unter "Name" den Namen des Studenten / der Studentin eingeben und "Hinzufügen" klicken.
+        Der erfasste Namen kann nun im Dropdown rechts ausgewählt werden und das Bewertungsraster geladen werden.
+    </p>
+    <p>
+        Wenn die Bewertung abgeschlossen ist, kann mit dem Button "Bewertungsblatt generieren" ganz unten das
+        Markdown-Dokument generiert werden.
+    </p>
+    <p>
+        Alle Daten werden ausschliesslich lokal im Browser gespeichert. Ein zentrales Backup wird nicht erstellt.
+    </p>
 </details>
 
 <form class="student">
