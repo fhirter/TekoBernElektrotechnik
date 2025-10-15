@@ -104,6 +104,17 @@
     }
 </script>
 
+<details>
+    <summary>Informationen</summary>
+    Unter "Name" den Namen des Studenten / der Studentin eingeben und "Hinzufügen" klicken.
+    Der erfasste Namen kann nun im Dropdown rechts ausgewählt werden und das Bewertungsraster geladen werden.
+
+    Wenn die Bewertung abgeschlossen ist, kann mit dem Button "Bewertungsblatt generieren" ganz unten das
+    Markdown-Dokument generiert werden.
+
+    Alle Daten werden ausschliesslich lokal im Browser gespeichert. Ein zentrales Backup wird nicht erstellt.
+</details>
+
 <form class="student">
     <label for="name">Name</label>
     <input type="text" id="name" name="name">
@@ -157,7 +168,7 @@
                 </fieldset>
             {/each}
 
-            <button type="submit">Bewertungsblatt laden</button>
+            <button type="submit">Bewertungsblatt generieren</button>
         </form>
     </div>
 {/if}
