@@ -123,7 +123,7 @@
     </p>
     <p>
         Wenn die Bewertung abgeschlossen ist, kann mit dem Button "Bewertungsblatt generieren" ganz unten das
-        Markdown-Dokument generiert werden.
+        Markdown-Dokument generiert werden. In diesem Dokument sind sämtliche Daten des Formulars enthalten.
     </p>
     <p>
         Alle Daten werden ausschliesslich lokal im Browser gespeichert. Ein zentrales Backup wird nicht erstellt.
