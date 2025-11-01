@@ -1,84 +1,89 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
 
-  --dark-color: #282e35;
-  --light-color: #efefef;
+    --dark-color: #282e35;
+    --light-color: #efefef;
 
-  color-scheme: light dark;
-  color: light-dark(var(--dark-color), var(--light-color));
-  background-color: light-dark(var(--light-color), var(--dark-color));
+    color-scheme: light dark;
+    color: light-dark(var(--dark-color), var(--light-color));
+    background-color: light-dark(var(--light-color), var(--dark-color));
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
 }
+
 a:hover {
-  color: #535bf2;
+    color: #535bf2;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+    font-size: 3.2em;
+    line-height: 1.1;
 }
 
 main div {
-  margin: 0 auto;
-  max-width: 60rem;
+    margin: 0 auto;
+    max-width: 60rem;
 }
 
 /* forms */
 fieldset {
-  margin: 0.5rem 0;
-  border-color: light-dark(var(--dark-color), var(--light-color));
+    margin: 0.5rem 0;
+    border-color: light-dark(var(--dark-color), var(--light-color));
 
-  display: grid;
-  grid-template-columns: 15rem 10rem 7rem 20rem;
-  gap: 2rem;
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1fr 3fr;
+    gap: 2rem;
 }
 
 label {
-  margin-left: 0.5rem;
+    margin-left: 0.5rem;
 }
 
-.bewertung input{
-  margin: 0.5rem 0;
-  width: 3rem;
-  height: 3rem;
+.bewertung select {
+    margin: 0.5rem 0;
+    width: 100%;
+    border: solid 1px red;
+    height: 3rem;
 }
-.stundent input {
+
+.student input {
     width: 10rem;
 }
 
 form textarea {
-  width: 100%;
-  height: 5rem;
+    width: 100%;
+    height: 5rem;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid black;
-  padding: 0.6em 1.2em;
-  margin: 1rem 0;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: light-dark(var(--light-color), var(--dark-color), );
-  cursor: pointer;
-  transition: border-color 0.01s;
+    border-radius: 8px;
+    border: 1px solid black;
+    padding: 0.6em 1.2em;
+    margin: 1rem 0;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: light-dark(var(--light-color), var(--dark-color),);
+    cursor: pointer;
+    transition: border-color 0.01s;
 }
+
 button:hover {
-  border-color: #646cff;
+    border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+    outline: 4px auto -webkit-focus-ring-color;
 }
