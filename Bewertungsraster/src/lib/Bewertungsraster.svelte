@@ -81,6 +81,17 @@
         $formData = bewertungsraster.data;
     }
 
+    function deleteBewertungsraster(event) {
+        event.preventDefault();
+
+        if (!confirm(`Möchten sie ${name} wirklich löschen?`)) return;
+
+        const index = allBewertungsraster.findIndex((bewertungsraster) => bewertungsraster.name === name);
+        allBewertungsraster.splice(index, 1);
+        storeData(allBewertungsraster);
+        $formData = {};
+    }
+
     function loadAllBewertungsrasterFromStorage() {
         allBewertungsraster.splice(0, allBewertungsraster.length);
 
@@ -137,7 +148,7 @@
             <option>{bewertung.name}</option>
         {/each}
     </select>
-    <button onclick={selectBewertungsraster}>Laden</button>
+    <button onclick={deleteBewertungsraster}>Löschen</button>
 </form>
 
 {#if name !== ""}
