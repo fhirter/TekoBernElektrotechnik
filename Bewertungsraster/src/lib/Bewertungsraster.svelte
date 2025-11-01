@@ -63,20 +63,21 @@
     function addStudent(event) {
         event.preventDefault();
         const inputField = event.target.previousElementSibling;
-        const name = inputField.value;
-        allBewertungsraster.push({
+        name = inputField.value;
+        const bewertungsraster = {
             name,
-        })
+        }
+        allBewertungsraster.push(bewertungsraster)
         storeData(allBewertungsraster);
+
         inputField.value = "";
+        $formData = {};
     }
 
     function selectBewertungsraster(event) {
-        event.preventDefault();
-        const inputField = event.target.previousElementSibling;
-        const targetName = inputField.value;
-        const bewertungsraster = allBewertungsraster.find((bewertungsraster) => bewertungsraster.name === targetName)
-        name = bewertungsraster.name;
+        if (typeof event !== "undefined") event.preventDefault();
+
+        const bewertungsraster = allBewertungsraster.find((bewertungsraster) => bewertungsraster.name === name)
         $formData = bewertungsraster.data;
     }
 
@@ -128,7 +129,10 @@
     <button onclick={addStudent}>Hinzufügen</button>
 
     <label for="student">Student auswählen</label>
-    <select id="student" name="name">
+    <select id="student" name="name"
+            bind:value={name}
+            onchange={selectBewertungsraster}
+    >
         {#each allBewertungsraster as bewertung}
             <option>{bewertung.name}</option>
         {/each}
