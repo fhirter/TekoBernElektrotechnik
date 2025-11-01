@@ -24,8 +24,6 @@ export function render(data, name) {
     const punkte = sumPunkte(dataFields);
     const note = calculateNote(punkte, max);
 
-    console.log(dataFields)
-
     const view = {
         title: `Bewertungsraster`,
         name,
@@ -48,7 +46,10 @@ export function convertData(data) {
             inputs: Object.entries(inputs).map(([inputLabel, inputValue]) => {
                 return {
                     label: inputLabel,
-                    value: inputValue,
+                    value: {
+                        ...inputValue,
+                        kommentar: inputValue.kommentar?.replace(/[\n\r]+/g, ' ')
+                    },
                 }
             })
         }
