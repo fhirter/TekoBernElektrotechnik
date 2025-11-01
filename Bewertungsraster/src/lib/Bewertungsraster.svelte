@@ -117,6 +117,10 @@
     <p>
         Alle Daten werden ausschliesslich lokal im Browser gespeichert. Ein zentrales Backup wird nicht erstellt.
     </p>
+    <p>
+        Der Abschnitt "Bonus" wird für die maximal möglichen Punkte nicht berücksichtigt und soll nur für zusätzliche
+        Punkte verwendet werden.
+    </p>
 </details>
 
 <form class="student">
