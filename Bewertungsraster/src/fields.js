@@ -108,7 +108,7 @@ export const fields = [
         "label": "Anhang",
         "inputs": [
             {
-                "label": "Code, Schemas, Zeichnungen",
+                "label": "Code Schemas Zeichnungen",
                 "min": 0,
                 "max": 10
             }
@@ -118,7 +118,7 @@ export const fields = [
         "label": "Bericht und Design",
         "inputs": [
             {
-                "label": "Gliederung, Aufbau, Struktur",
+                "label": "Gliederung Aufbau Struktur",
                 "min": 0,
                 "max": 5
             },
