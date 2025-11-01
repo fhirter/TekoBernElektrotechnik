@@ -66,7 +66,6 @@
         const name = inputField.value;
         allBewertungsraster.push({
             name,
-            data: $formData,
         })
         storeData(allBewertungsraster);
         inputField.value = "";
