@@ -198,7 +198,7 @@
                                 <!-- todo: remove parseFloat and string conversion -->
                                 <option
                                         value={""+bewertungskriterium.punkte*input.max/10}
-                                        selected={parseFloat(currentBewertungsraster.data[field.label][input.label]["punkte"]) === bewertungskriterium.punkte*input.max/10}
+                                        selected={parseFloat(currentBewertungsraster.data[field.label][input.label]?.punkte) === bewertungskriterium.punkte*input.max/10}
                                 >{bewertungskriterium.bezeichnung}</option>
                             {/each}
                         </select>
