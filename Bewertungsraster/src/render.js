@@ -19,7 +19,7 @@ function promptDownload(output, filename) {
 }
 
 export function render(data, name) {
-    const dataFields= convertData(data);
+    const dataFields = convertData(data);
     const max = getMaxPunkte(fields);
     const punkte = sumPunkte(dataFields);
     const note = calculateNote(punkte, max);
@@ -34,7 +34,9 @@ export function render(data, name) {
     }
 
     const output = Mustache.render(template, view);
-    const filename = `Bewertungsraster_Diplomarbeit_${name}.md`
+    const timestamp = new Date().toISOString().slice(0, 16).replace('T', '_').replace(':', '');
+
+    const filename = `${timestamp}_Bewertungsraster_Diplomarbeit_${name}.md`
     promptDownload(output, filename);
 }
 
@@ -59,19 +61,19 @@ export function convertData(data) {
 }
 
 export function sumPunkte(obj) {
-  let total = 0;
+    let total = 0;
 
-  for (const key in obj) {
-    if (typeof obj[key] === "object" && obj[key] !== null) {
-      // Recursively traverse nested objects
-      total += sumPunkte(obj[key]);
-    } else if (key === "punkte" && obj[key] !== null) {
-      // Add "punkte" value if not null
-      total += parseFloat(obj[key]);
+    for (const key in obj) {
+        if (typeof obj[key] === "object" && obj[key] !== null) {
+            // Recursively traverse nested objects
+            total += sumPunkte(obj[key]);
+        } else if (key === "punkte" && obj[key] !== null) {
+            // Add "punkte" value if not null
+            total += parseFloat(obj[key]);
+        }
     }
-  }
 
-  return total;
+    return total;
 }
 
 export function getMaxPunkte(fields) {
@@ -86,5 +88,5 @@ export function getMaxPunkte(fields) {
 }
 
 export function calculateNote(punkte, max) {
-    return Math.min(6, Math.round((punkte / max * 5 + 1)*10)/10);
+    return Math.min(6, Math.round((punkte / max * 5 + 1) * 10) / 10);
 }
