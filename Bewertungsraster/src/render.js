@@ -38,7 +38,7 @@ export function render(data, name) {
     promptDownload(output, filename);
 }
 
-
+// convert to format suited for rendering
 export function convertData(data) {
     const fields = Object.entries(data).map(([sectionLabel, inputs]) => {
         return {

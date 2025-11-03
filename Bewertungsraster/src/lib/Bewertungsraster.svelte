@@ -1,15 +1,6 @@
 <script>
-    import {createForm} from 'felte';
-
     import {fields} from "../fields.js";
-    import {
-        render,
-        getMaxPunkte,
-        convertData,
-        calculateNote,
-        sumPunkte
-    } from "../render.js";
-    import {derived} from "svelte/store";
+    import {calculateNote, convertData, getMaxPunkte, render, sumPunkte} from "../render.js";
 
     const bewertungskriterien = [
         {"punkte": 0, "bezeichnung": "nicht vorhanden"},
@@ -27,29 +18,62 @@
 
     const max = getMaxPunkte(fields);
 
-    let name = $state("");
 
-    let {form, data: formData} = createForm({
-        onSubmit: (values) => {
-            render($formData, name)
-        },
-    })
+    function submitHandler(event) {
+        event.preventDefault();
+        const {data, name} = currentBewertungsraster;
+        render(data, name)
+    }
+
+    let currentBewertungsraster = $state({
+        name: "",
+        data: {},
+    });
+
+    currentBewertungsraster = getEmptyBewertungsraster(fields);
+
+    let name = $derived(currentBewertungsraster.name);
+
+    function getEmptyBewertungsraster(fields) {
+        const emptyBewertungsraster = {
+            name: "",
+            data: {}
+        }
+        for (const field of fields) {
+            for (const input of field.inputs) {
+                emptyBewertungsraster.data = {
+                    ...emptyBewertungsraster.data,
+                    [field.label]: {
+                        ...emptyBewertungsraster.data[field.label],
+                        [input.label]: {
+                            "punkte": 0,
+                            "kommentar": "",
+                        }
+                    }
+                }
+            }
+        }
+        return emptyBewertungsraster;
+    }
+
+    $inspect(currentBewertungsraster);
 
     const allBewertungsraster = $state([]);
 
     loadAllBewertungsrasterFromStorage();
 
-    formData.subscribe((data) => {
+    $effect(() => {
         // store current dataset in array
         const entry = allBewertungsraster.find((bewertungsraster) => bewertungsraster.name === name);
         if (typeof entry !== "undefined") {
-            entry.data = data;
+            entry.data = currentBewertungsraster.data;
         }
         // persist
         storeData(allBewertungsraster);
     })
 
-    const punkte = derived(formData, (data) => {
+    const punkte = $derived.by(() => {
+        const data = currentBewertungsraster.data;
         const dataFields = convertData(data);
         const punkte = sumPunkte(dataFields);
         const note = calculateNote(punkte, max);
@@ -63,22 +87,21 @@
     function addStudent(event) {
         event.preventDefault();
         const inputField = event.target.previousElementSibling;
-        name = inputField.value;
-        const bewertungsraster = {
-            name,
-        }
+        getEmptyBewertungsraster(fields)
+        const bewertungsraster =  getEmptyBewertungsraster(fields)
+        bewertungsraster.name = inputField.value;
+
         allBewertungsraster.push(bewertungsraster)
         storeData(allBewertungsraster);
 
         inputField.value = "";
-        $formData = {};
+        currentBewertungsraster = bewertungsraster;
     }
 
     function selectBewertungsraster(event) {
         if (typeof event !== "undefined") event.preventDefault();
 
-        const bewertungsraster = allBewertungsraster.find((bewertungsraster) => bewertungsraster.name === name)
-        $formData = bewertungsraster.data;
+        currentBewertungsraster = allBewertungsraster.find((bewertungsraster) => bewertungsraster.name === name);
     }
 
     function deleteBewertungsraster(event) {
@@ -89,7 +112,7 @@
         const index = allBewertungsraster.findIndex((bewertungsraster) => bewertungsraster.name === name);
         allBewertungsraster.splice(index, 1);
         storeData(allBewertungsraster);
-        $formData = {};
+
     }
 
     function loadAllBewertungsrasterFromStorage() {
@@ -155,12 +178,12 @@
     <h1>Bewertungsraster TEL {name}</h1>
     <div>
         <ul>
-            <li>Note: <strong>{$punkte.note}</strong></li>
-            <li>Punkte: {$punkte.punkte}/{$punkte.max}</li>
+            <li>Note: <strong>{punkte.note}</strong></li>
+            <li>Punkte: {punkte.punkte}/{punkte.max}</li>
         </ul>
 
 
-        <form class="bewertung" use:form>
+        <form class="bewertung">
             {#each fields as field}
                 <fieldset>
                     <legend>{field.label}</legend>
@@ -171,11 +194,12 @@
                         <select
                                 id="{field.label}-{input.label}"
                                 name="{field.label}.{input.label}.punkte"
+                                bind:value={currentBewertungsraster.data[field.label][input.label]["punkte"]}
                         >
                             {#each bewertungskriterien as bewertungskriterium}
                                 <option
                                         value={bewertungskriterium.punkte*input.max/10}
-                                        selected={parseFloat($formData?.[field.label]?.[input.label]?.punkte) === bewertungskriterium.punkte*input.max/10}
+                                        selected={parseFloat(currentBewertungsraster.data[field.label][input.label]["punkte"]) === bewertungskriterium.punkte*input.max/10}
                                 >{bewertungskriterium.bezeichnung}</option>
                             {/each}
                         </select>
@@ -185,12 +209,13 @@
                         <textarea
                                 id="{field.label}-{input.label}-kommentar"
                                 name="{field.label}.{input.label}.kommentar"
-                        >{$formData?.[field.label]?.[input.label]?.kommentar}</textarea>
+                                bind:value={currentBewertungsraster.data[field.label][input.label]["kommentar"]}
+                        >{currentBewertungsraster.data[field.label][input.label]["kommentar"]}</textarea>
                     {/each}
                 </fieldset>
             {/each}
 
-            <button type="submit">Bewertungsblatt generieren</button>
+            <button type="submit" onclick={submitHandler}>Bewertungsblatt generieren</button>
         </form>
     </div>
 {/if}
