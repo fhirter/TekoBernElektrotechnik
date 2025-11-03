@@ -56,8 +56,6 @@
         return emptyBewertungsraster;
     }
 
-    $inspect(currentBewertungsraster);
-
     const allBewertungsraster = $state([]);
 
     loadAllBewertungsrasterFromStorage();
