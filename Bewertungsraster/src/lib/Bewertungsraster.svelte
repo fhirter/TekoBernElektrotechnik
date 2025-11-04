@@ -48,6 +48,7 @@
                         [input.label]: {
                             "punkte": "0",
                             "kommentar": "",
+                            "max": input.max
                         }
                     }
                 }
@@ -187,7 +188,8 @@
                     <legend>{field.label}</legend>
                     {#each field.inputs as input}
                         <label for="{field.label}-{input.label}">
-                            {input.label} <br> (max. {input.max})
+                            <!-- todo: remove the assignment as it is for backwards compatibility -->
+                            {input.label} <br> ({currentBewertungsraster.data[field.label][input.label].punkte}/{currentBewertungsraster.data[field.label][input.label]["max"] = input.max})
                         </label>
                         <select
                                 id="{field.label}-{input.label}"

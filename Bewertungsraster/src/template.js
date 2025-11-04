@@ -10,7 +10,7 @@ export const template = `
 | Bewertungspunkt | Punkte | Kommentar |
 |-----------------|--------|-----------|
 {{#inputs}}
-| {{label}} | {{value.punkte}} | {{value.kommentar}} |
+| {{label}} | {{value.punkte}}/{{value.max}} | {{value.kommentar}} |
 {{/inputs}}
 
 {{/sections}}
