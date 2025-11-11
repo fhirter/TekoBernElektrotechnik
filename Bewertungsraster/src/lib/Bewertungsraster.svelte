@@ -154,6 +154,10 @@
         Der Abschnitt "Bonus" wird für die maximal möglichen Punkte nicht berücksichtigt und soll nur für zusätzliche
         Punkte verwendet werden.
     </p>
+    <p>
+        Unterstütze Browser: Aktuell nur Firefox ohne Fehler.
+        Bekannte Fehler: Unter Safari funktioniert der Download nicht. Unter Chrome und Edge können Daten verloren gehen.
+    </p>
 </details>
 
 <form class="student">
