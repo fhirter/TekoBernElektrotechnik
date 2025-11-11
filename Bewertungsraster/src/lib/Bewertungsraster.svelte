@@ -140,7 +140,7 @@
 <details>
     <summary>Informationen</summary>
     <p>
-        Unter "Name" den Namen des Studenten / der Studentin eingeben und "Hinzufügen" klicken.
+        Unter "Name" den Namen der zu bewertenden Person eingeben und "Hinzufügen" klicken.
         Der erfasste Namen kann nun im Dropdown rechts ausgewählt werden und das Bewertungsraster geladen werden.
     </p>
     <p>
@@ -161,7 +161,7 @@
     <input type="text" id="name" name="name">
     <button onclick={addStudent}>Hinzufügen</button>
 
-    <label for="student">Student auswählen</label>
+    <label for="student">Person auswählen</label>
     <select id="student" name="name"
             bind:value={name}
             onchange={selectBewertungsraster}
