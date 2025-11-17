@@ -161,7 +161,7 @@
 </details>
 
 <form class="student">
-    <label for="name">Name</label>
+    <label for="name">Vorname Nachname</label>
     <input type="text" id="name" name="name">
     <button onclick={addStudent}>Hinzufügen</button>
 
