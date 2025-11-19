@@ -1,21 +1,11 @@
 import {template} from "./template.js";
 import Mustache from "mustache";
 import {fields} from "./fields.js";
+import { saveAs } from 'file-saver';
 
 function promptDownload(output, filename) {
     const blob = new Blob([output], {type: "text/plain"});
-    const url = URL.createObjectURL(blob);
-
-    // Create a temporary anchor element for download
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename; // Sets the filename
-    document.body.appendChild(a);
-    a.click();
-
-    // Cleanup
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    saveAs(blob, filename);
 }
 
 export function render(data, studentName) {
