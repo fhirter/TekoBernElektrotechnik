@@ -50,8 +50,7 @@ export function convertData(data) {
                     label: inputLabel,
                     value: {
                         ...inputValue,
-                        // todo: replace with <br>
-                        kommentar: inputValue.kommentar?.replace(/[\n\r]+/g, ' ')
+                        kommentar: inputValue.kommentar?.replace(/[\n\r]+/g, '<br>')
                     },
                 }
             })
