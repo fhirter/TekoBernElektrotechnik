@@ -1,8 +1,15 @@
 export const template = `
-# {{title}} {{name}} 
+---
+title: {{title}}
+subtitle: {{subtitle}}
+author: {{studentName}}, {{className}}
+date: {{date}}
+---
 
 - Note: {{note}}
 - Punkte: {{punkte}}/{{max}}
+- Betreuer: {{tutor}}
+- Experte: {{expert}}
 
 {{#sections}}
 ## {{section}}

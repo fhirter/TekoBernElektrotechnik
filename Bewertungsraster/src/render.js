@@ -18,15 +18,25 @@ function promptDownload(output, filename) {
     URL.revokeObjectURL(url);
 }
 
-export function render(data, name) {
+export function render(data, studentName) {
     const dataFields = convertData(data);
     const max = getMaxPunkte(fields);
     const punkte = sumPunkte(dataFields);
     const note = calculateNote(punkte, max);
 
+    const className = "B-TEL-24-T-a"
+
+    const tutor = "";
+    const expert = "";
+
     const view = {
-        title: `Bewertungsraster`,
-        name,
+        title: `Bewertungsraster Diplomarbeit`,
+        subtitle: `Teko Bern`,
+        date: new Date().toLocaleDateString(),
+        studentName,
+        className,
+        tutor,
+        expert,
         note,
         punkte,
         max,
@@ -36,7 +46,7 @@ export function render(data, name) {
     const output = Mustache.render(template, view);
     const timestamp = new Date().toISOString().slice(0, 16).replace('T', '_').replace(':', '');
 
-    const filename = `${timestamp}_Bewertungsraster_Diplomarbeit_${name}.md`
+    const filename = `${timestamp}_Bewertungsraster_Diplomarbeit_${studentName}.md`
     promptDownload(output, filename);
 }
 
@@ -50,6 +60,7 @@ export function convertData(data) {
                     label: inputLabel,
                     value: {
                         ...inputValue,
+                        // todo: replace with <br>
                         kommentar: inputValue.kommentar?.replace(/[\n\r]+/g, ' ')
                     },
                 }
