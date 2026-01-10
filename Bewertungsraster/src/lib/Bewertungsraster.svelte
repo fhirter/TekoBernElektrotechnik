@@ -79,14 +79,14 @@
 
     function addStudent(event) {
         event.preventDefault();
-        const inputField = event.target.previousElementSibling;
+        const nameInput = event.target.previousElementSibling;
 
         currentBewertungsraster =  getEmptyBewertungsraster(fields)
-        currentBewertungsraster.name = inputField.value;
+        currentBewertungsraster.name = nameInput.value;
 
         allBewertungsraster.push(currentBewertungsraster)
 
-        inputField.value = "";
+        nameInput.value = "";
     }
 
     function selectBewertungsraster(event) {
