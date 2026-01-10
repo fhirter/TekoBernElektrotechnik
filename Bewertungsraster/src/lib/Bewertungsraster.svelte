@@ -100,6 +100,8 @@
     function selectBewertungsraster(event) {
         if (typeof event !== "undefined") event.preventDefault();
 
+        const name = event.target.value;
+
         currentBewertungsraster = allBewertungsraster.find((bewertungsraster) => bewertungsraster.name === name);
     }
 
