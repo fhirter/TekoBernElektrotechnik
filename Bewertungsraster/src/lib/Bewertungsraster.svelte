@@ -62,12 +62,6 @@
     loadAllBewertungsrasterFromStorage();
 
     $effect(() => {
-        // store current dataset in array
-        const entry = allBewertungsraster.find((bewertungsraster) => bewertungsraster.name === name);
-        if (typeof entry !== "undefined") {
-            entry.data = currentBewertungsraster.data;
-        }
-        // persist
         storeData(allBewertungsraster);
     })
 
@@ -86,15 +80,13 @@
     function addStudent(event) {
         event.preventDefault();
         const inputField = event.target.previousElementSibling;
-        getEmptyBewertungsraster(fields)
-        const bewertungsraster =  getEmptyBewertungsraster(fields)
-        bewertungsraster.name = inputField.value;
 
-        allBewertungsraster.push(bewertungsraster)
-        storeData(allBewertungsraster);
+        currentBewertungsraster =  getEmptyBewertungsraster(fields)
+        currentBewertungsraster.name = inputField.value;
+
+        allBewertungsraster.push(currentBewertungsraster)
 
         inputField.value = "";
-        currentBewertungsraster = bewertungsraster;
     }
 
     function selectBewertungsraster(event) {
