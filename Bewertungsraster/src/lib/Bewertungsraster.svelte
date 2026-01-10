@@ -187,8 +187,8 @@
             <li>Punkte: {punkte.punkte}/{punkte.max}</li>
         </ul>
 
-
-        <form class="bewertung">
+        {#key currentBewertungsraster}
+            <form class="bewertung">
             {#each fields as field}
                 <fieldset>
                     <legend>{field.label}</legend>
@@ -224,5 +224,6 @@
 
             <button type="submit" onclick={submitHandler}>Bewertungsblatt generieren</button>
         </form>
+        {/key}
     </div>
 {/if}
