@@ -1,12 +1,7 @@
 import {template} from "./template.js";
 import Mustache from "mustache";
 import {fields} from "./fields.js";
-import { saveAs } from 'file-saver';
 
-function promptDownload(output, filename) {
-    const blob = new Blob([output], {type: "text/plain"});
-    saveAs(blob, filename);
-}
 
 export function renderToMarkdown(data, studentName) {
     const dataFields = convertData(data);
@@ -33,11 +28,13 @@ export function renderToMarkdown(data, studentName) {
         sections: dataFields,
     }
 
-    const output = Mustache.render(template, view);
+    return Mustache.render(template, view);
+}
+
+export function getFileName(studentName) {
     const timestamp = new Date().toISOString().slice(0, 16).replace('T', '_').replace(':', '');
 
-    const filename = `${timestamp}_Bewertungsraster_Diplomarbeit_${studentName}.md`
-    promptDownload(output, filename);
+   return `${timestamp}_Bewertungsraster_Diplomarbeit_${studentName}.md`
 }
 
 // convert to format suited for rendering

@@ -1,6 +1,19 @@
 <script>
     import {fields} from "../fields.js";
-    import {calculateNote, convertData, getMaxPunkte, renderToMarkdown, sumPunkte} from "../renderToMarkdown.js";
+    import {
+        calculateNote,
+        convertData,
+        getMaxPunkte,
+        renderToMarkdown,
+        sumPunkte,
+        getFileName
+    } from "../renderToMarkdown.js";
+    import {openHtmlPopup, promptDownload} from "../OutputHandlers.js";
+    import {renderToHtml} from "../renderToHtml.js";
+
+    const featureFlags = {
+        htmlPopup: false
+    }
 
     const bewertungskriterien = [
         {"punkte": 0, "bezeichnung": "nicht vorhanden"},
@@ -22,7 +35,13 @@
     function submitHandler(event) {
         event.preventDefault();
         const {data, name} = currentBewertungsraster;
-        renderToMarkdown(data, name)
+        const markdown = renderToMarkdown(data, name);
+        const filename = getFileName(name);
+
+        const html = renderToHtml(markdown);
+
+        if (featureFlags.htmlPopup) openHtmlPopup(html)
+        promptDownload(markdown, filename);
     }
 
     let currentBewertungsraster = $state({
@@ -81,7 +100,7 @@
         event.preventDefault();
         const nameInput = event.target.previousElementSibling;
 
-        currentBewertungsraster =  getEmptyBewertungsraster(fields)
+        currentBewertungsraster = getEmptyBewertungsraster(fields)
         currentBewertungsraster.name = nameInput.value;
 
         allBewertungsraster.push(currentBewertungsraster)
