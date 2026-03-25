@@ -177,39 +177,39 @@
 
         {#key currentBewertungsraster}
             <form class="bewertung">
-            {#each fields as field}
-                <fieldset>
-                    <legend>{field.label}</legend>
-                    {#each field.inputs as input}
-                        <label for="{field.label}-{input.label}">
-                            {input.label} <br> ({currentBewertungsraster.data[field.label][input.label].punkte}/{currentBewertungsraster.data[field.label][input.label]["max"]})
-                        </label>
-                        <select
-                                id="{field.label}-{input.label}"
-                                name="{field.label}.{input.label}.punkte"
-                                bind:value={currentBewertungsraster.data[field.label][input.label]["punkte"]}
-                        >
-                            {#each bewertungskriterien as bewertungskriterium}
-                                <option
-                                        value={bewertungskriterium.punkte*input.max/10}
-                                        selected={currentBewertungsraster.data[field.label][input.label]?.punkte === bewertungskriterium.punkte*input.max/10}
-                                >{bewertungskriterium.bezeichnung}</option>
-                            {/each}
-                        </select>
-                        <label for="{field.label}-{input.label}-kommentar">
-                            Kommentar
-                        </label>
-                        <textarea
-                                id="{field.label}-{input.label}-kommentar"
-                                name="{field.label}.{input.label}.kommentar"
-                                bind:value={currentBewertungsraster.data[field.label][input.label]["kommentar"]}
-                        >{currentBewertungsraster.data[field.label][input.label]["kommentar"]}</textarea>
-                    {/each}
-                </fieldset>
-            {/each}
+                {#each fields as field}
+                    <fieldset>
+                        <legend>{field.label}</legend>
+                        {#each field.inputs as input}
+                            <label for="{field.label}-{input.label}">
+                                {input.label} <br> ({currentBewertungsraster.data[field.label][input.label].punkte}/{currentBewertungsraster.data[field.label][input.label]["max"]})
+                            </label>
+                            <select
+                                    id="{field.label}-{input.label}"
+                                    name="{field.label}.{input.label}.punkte"
+                                    bind:value={currentBewertungsraster.data[field.label][input.label]["punkte"]}
+                            >
+                                {#each bewertungskriterien as bewertungskriterium}
+                                    <option
+                                            value={bewertungskriterium.punkte*input.max/10}
+                                            selected={currentBewertungsraster.data[field.label][input.label]?.punkte === bewertungskriterium.punkte*input.max/10}
+                                    >{bewertungskriterium.bezeichnung}</option>
+                                {/each}
+                            </select>
+                            <label for="{field.label}-{input.label}-kommentar">
+                                Kommentar
+                            </label>
+                            <textarea
+                                    id="{field.label}-{input.label}-kommentar"
+                                    name="{field.label}.{input.label}.kommentar"
+                                    bind:value={currentBewertungsraster.data[field.label][input.label]["kommentar"]}
+                            >{currentBewertungsraster.data[field.label][input.label]["kommentar"]}</textarea>
+                        {/each}
+                    </fieldset>
+                {/each}
 
-            <button type="submit" onclick={submitHandler}>Bewertungsblatt generieren</button>
-        </form>
+                <button type="submit" onclick={submitHandler}>Bewertungsblatt generieren</button>
+            </form>
         {/key}
     </div>
 {/if}
