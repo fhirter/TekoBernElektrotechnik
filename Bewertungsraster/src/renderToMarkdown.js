@@ -8,7 +8,7 @@ function promptDownload(output, filename) {
     saveAs(blob, filename);
 }
 
-export function render(data, studentName) {
+export function renderToMarkdown(data, studentName) {
     const dataFields = convertData(data);
     const max = getMaxPunkte(fields);
     const punkte = sumPunkte(dataFields);

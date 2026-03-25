@@ -1,6 +1,6 @@
 <script>
     import {fields} from "../fields.js";
-    import {calculateNote, convertData, getMaxPunkte, render, sumPunkte} from "../render.js";
+    import {calculateNote, convertData, getMaxPunkte, renderToMarkdown, sumPunkte} from "../renderToMarkdown.js";
 
     const bewertungskriterien = [
         {"punkte": 0, "bezeichnung": "nicht vorhanden"},
@@ -22,7 +22,7 @@
     function submitHandler(event) {
         event.preventDefault();
         const {data, name} = currentBewertungsraster;
-        render(data, name)
+        renderToMarkdown(data, name)
     }
 
     let currentBewertungsraster = $state({
