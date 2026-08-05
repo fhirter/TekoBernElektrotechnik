@@ -11,23 +11,34 @@ const selectPerson = 'Person auswählen';
 
 test('add students', async ({page}) => {
     await page.goto(url);
-    await page.getByRole('textbox', { name: nameLabel }).fill('John Doe');
-    await page.getByRole('button', { name: addButton }).click();
-    await page.getByRole('textbox', { name: nameLabel }).fill('Jane Doe');
-    await page.getByRole('button', { name: 'Hinzufügen' }).click();
-    await page.getByLabel(selectPerson).selectOption('John Doe');
+
+
+    const addButtonElement = page.getByRole('button', { name: addButton });
+    const nameInput = page.getByRole('textbox', { name: nameLabel });
+    const selectPersonInput = page.getByLabel(selectPerson);
+
+    // add two students
+    await nameInput.fill('John Doe');
+    await addButtonElement.click();
+    await nameInput.fill('Jane Doe');
+    await addButtonElement.click();
+
+    await expect(page.getByRole('heading')).toContainText('Bewertungsraster TEL Jane Doe');
+
+    await selectPersonInput.selectOption('John Doe');
     await expect(page.getByRole('heading')).toContainText('Bewertungsraster TEL John Doe');
-    await page.getByLabel(selectPerson).selectOption('Jane Doe');await expect(page.getByRole('heading')).toContainText('Bewertungsraster TEL Jane Doe');
+
     await page.reload();
-    await page.getByLabel(selectPerson).selectOption('Jane Doe');
+    await selectPersonInput.selectOption('Jane Doe');
     await expect(page.getByRole('heading')).toContainText('Bewertungsraster TEL Jane Doe');
 });
 
-test('fill form', async ({page}) => {
+test('fill bewertungsraster', async ({page}) => {
     await page.goto(url);
-    await page.getByRole('textbox', {name: nameLabel}).fill('John Doe');
+    const name = 'Jane Doe';
+    await page.getByRole('textbox', {name: nameLabel}).fill(name);
     await page.getByRole('button', {name: addButton}).click();
-    await page.getByLabel(selectPerson).selectOption('John Doe');
+    await page.getByLabel(selectPerson).selectOption(name);
 
     for (const field of fields) {
         for (const input of field.inputs) {
@@ -41,5 +52,13 @@ test('fill form', async ({page}) => {
 
     await expect(page.getByRole('list')).toContainText('Note: 6');
     await expect(page.getByRole('list')).toContainText('Punkte: 195/180');
+});
+test('fill heading', async ({page}) => {
+    const name = 'Jack Doe';
+    await page.goto(url);
+    await page.getByRole('textbox', {name: nameLabel}).fill(name);
+    await page.getByRole('button', {name: addButton}).click();
+    await page.getByLabel(selectPerson).selectOption(name);
+    await expect(page.getByRole('heading')).toContainText(`Bewertungsraster TEL ${name}`);
 });
 
