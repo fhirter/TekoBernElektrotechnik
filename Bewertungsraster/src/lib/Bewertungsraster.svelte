@@ -30,7 +30,6 @@
     function getEmptyBewertungsraster(fields) {
         const emptyBewertungsraster = {
             studentName: "",
-            name: this.studentName,
             tutor: "",
             expert: "",
             data: {},
