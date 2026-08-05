@@ -23,14 +23,14 @@ test('add students', async ({page}) => {
     await nameInput.fill('Jane Doe');
     await addButtonElement.click();
 
-    await expect(page.getByRole('heading')).toContainText('Bewertungsraster TEL Jane Doe');
+    await expect(page.getByRole('heading')).toContainText('Bewertungsraster Jane Doe');
 
     await selectPersonInput.selectOption('John Doe');
-    await expect(page.getByRole('heading')).toContainText('Bewertungsraster TEL John Doe');
+    await expect(page.getByRole('heading')).toContainText('Bewertungsraster John Doe');
 
     await page.reload();
     await selectPersonInput.selectOption('Jane Doe');
-    await expect(page.getByRole('heading')).toContainText('Bewertungsraster TEL Jane Doe');
+    await expect(page.getByRole('heading')).toContainText('Bewertungsraster Jane Doe');
 });
 
 test('fill bewertungsraster', async ({page}) => {

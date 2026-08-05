@@ -128,7 +128,7 @@
 </form>
 
 {#if typeof currentBewertungsraster?.name !== "undefined"}
-    <h1>Bewertungsraster TEL {name}</h1>
+    <h1>Bewertungsraster {name}</h1>
     <div>
         <ul>
             <li>Note: <strong>{punkte.note}</strong></li>
