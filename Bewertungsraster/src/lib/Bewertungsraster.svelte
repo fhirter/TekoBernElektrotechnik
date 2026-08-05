@@ -6,6 +6,7 @@
     import {renderToHtml} from "../renderToHtml.js";
     import {calculateNote, getFileName, getMaxPunkte, sumPunkte, transformBewertungsraster} from "../Helpers.js";
     import {getEmptyBewertungsraster} from "../Helpers.js";
+    import {getAll, set} from "../BewertungsrasterRepository.js"
 
     import Details from "./Details.svelte";
 
@@ -31,12 +32,10 @@
 
     let name = $derived(currentBewertungsraster?.name);
 
-    const allBewertungsraster = $state([]);
-
-    loadAllBewertungsrasterFromStorage();
+    const allBewertungsraster = $state(getAll());
 
     $effect(() => {
-        storeData(allBewertungsraster);
+        set(allBewertungsraster);
     })
 
     const punkte = $derived.by(() => {
@@ -81,31 +80,13 @@
 
         const index = allBewertungsraster.findIndex((bewertungsraster) => bewertungsraster.name === name);
         allBewertungsraster.splice(index, 1);
-        storeData(allBewertungsraster);
+        set(allBewertungsraster);
 
     }
 
-    function loadAllBewertungsrasterFromStorage() {
-        allBewertungsraster.splice(0, allBewertungsraster.length);
 
-        const bewertungsrasterFromStorage = loadData();
 
-        for (const fromStorage of bewertungsrasterFromStorage) {
-            allBewertungsraster.push(fromStorage);
-        }
-    }
 
-    function storeData(data) {
-        const storageKey = `bewertungsraster-tel`;
-        window.localStorage.setItem(storageKey, JSON.stringify(data));
-    }
-
-    function loadData() {
-        const storageKey = `bewertungsraster-tel`;
-        const data = window.localStorage.getItem(storageKey);
-        if (data === null) return [];
-        return JSON.parse(data);
-    }
 </script>
 
 <details>
