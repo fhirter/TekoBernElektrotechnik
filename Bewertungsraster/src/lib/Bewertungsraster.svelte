@@ -40,7 +40,8 @@
     })
 
     const punkte = $derived.by(() => {
-        if (!currentBewertungsraster) return;
+        if (typeof currentBewertungsraster === "undefined") return;
+
         const data = currentBewertungsraster.data;
         const dataFields = transformBewertungsraster(data);
         const punkte = sumPunkte(dataFields);
@@ -145,7 +146,7 @@
     <button onclick={deleteBewertungsraster}>Löschen</button>
 </form>
 
-{#if typeof name !== "undefined"}
+{#if typeof currentBewertungsraster?.name !== "undefined"}
     <h1>Bewertungsraster TEL {name}</h1>
     <div>
         <ul>
