@@ -1,0 +1,49 @@
+.bewertung select {
+    margin: 0.5rem 0;
+    width: 100%;
+    height: 3rem;
+}
+
+.student {
+    display: grid;
+    grid-template-areas:
+            "nameLabel . selectStudentLabel ."
+            "nameInput addPerson selectStudent deleteSelectedStudent";
+    grid-template-columns: min-content min-content min-content min-content;
+    grid-template-rows: 1.5rem min-content;
+    gap: 0 1rem;
+
+    margin: 1rem 0;
+
+    label[for="name"] {
+        grid-area: nameLabel;
+    }
+    input[name="name"] {
+        grid-area: nameInput;
+    }
+    input[name="name"] + button {
+        grid-area: addPerson;
+    }
+
+    label[for="student"] {
+        grid-area: selectStudentLabel;
+    }
+    select#student {
+        grid-area: selectStudent;
+    }
+    select#student + button {
+        grid-area: deleteSelectedStudent;
+    }
+
+    label {
+        margin: 0;
+    }
+    input, button, select {
+        box-sizing: border-box;
+        width: 12rem;
+        height: 2.5rem;
+        margin: 0;
+    }
+
+
+}
