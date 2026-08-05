@@ -41,7 +41,7 @@
                     [field.label]: {
                         ...emptyBewertungsraster.data[field.label],
                         [input.label]: {
-                            "punkte": "0",
+                            "punkte": 0,
                             "kommentar": "",
                             "max": input.max
                         }
