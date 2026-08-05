@@ -142,8 +142,9 @@
         Alle Daten werden ausschliesslich lokal im Browser gespeichert. Ein zentrales Backup wird nicht erstellt.
     </p>
     <p>
-        Der Abschnitt "Bonus" wird für die maximal möglichen Punkte nicht berücksichtigt und soll nur für zusätzliche
-        Punkte verwendet werden.
+        <strong>Der Abschnitt "Bonus" wird für die maximal möglichen Punkte nicht berücksichtigt und soll nur für
+            zusätzliche
+            Punkte verwendet werden.</strong>
     </p>
 </details>
 
@@ -176,10 +177,19 @@
             <form class="bewertung">
                 {#each fields as field}
                     <fieldset>
-                        <legend>{field.label}</legend>
+                        <legend>
+                            <Details
+                                    value={field.label}
+                                    description={field.description}
+                            ></Details>
+                        </legend>
                         {#each field.inputs as input}
                             <label for="{field.label}-{input.label}">
-                                {input.label} <br> ({currentBewertungsraster.data[field.label][input.label].punkte}/{currentBewertungsraster.data[field.label][input.label]["max"]})
+                                <Details
+                                        value = "{input.label} <br>
+                                            ({currentBewertungsraster.data[field.label][input.label].punkte}/{currentBewertungsraster.data[field.label][input.label]['max']})"
+                                        description = "{input.description}"
+                                ></Details>
                             </label>
                             <select
                                     id="{field.label}-{input.label}"

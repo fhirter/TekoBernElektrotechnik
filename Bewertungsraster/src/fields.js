@@ -182,6 +182,7 @@ export const fields = [
     {
         "label": "Bonus",
         "bonus": true,
+        "description": "Der Abschnitt \"Bonus\" wird für die maximal möglichen Punkte nicht berücksichtigt und soll nur für zusätzliche Punkte verwendet werden.",
         "inputs": [
             {
                 "label": "Schwierigkeitsgrad",
