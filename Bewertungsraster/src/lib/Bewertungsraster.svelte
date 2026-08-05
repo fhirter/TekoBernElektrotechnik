@@ -14,7 +14,7 @@
     function submitHandler(event) {
         event.preventDefault();
         const {data, name} = currentBewertungsraster;
-        const markdown = renderToMarkdown(data, name);
+        const markdown = renderToMarkdown(data, {studentName: name});
         const filename = getFileName(name);
 
         const html = renderToHtml(markdown);

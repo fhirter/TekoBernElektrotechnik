@@ -4,15 +4,13 @@ import {fields} from "./fields.js";
 import {calculateNote, transformBewertungsraster, getMaxPunkte, sumPunkte} from "./Helpers.js";
 
 
-export function renderToMarkdown(data, studentName) {
+export function renderToMarkdown(data, {studentName, tutor, expert}) {
+    const dataFields = transformBewertungsraster(data);
     const max = getMaxPunkte(fields);
     const punkte = sumPunkte(dataFields);
     const note = calculateNote(punkte, max);
 
     const className = "B-TEL-24-T-a"
-
-    const tutor = "";
-    const expert = "";
 
     const view = {
         title: `Bewertungsraster Diplomarbeit`,
