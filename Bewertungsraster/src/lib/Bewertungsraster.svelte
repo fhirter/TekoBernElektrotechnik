@@ -4,35 +4,30 @@
     import {renderToMarkdown} from "../renderToMarkdown.js";
     import {openHtmlPopup, promptDownload} from "../OutputHandlers.js";
     import {renderToHtml} from "../renderToHtml.js";
-    import {calculateNote, getFileName, getMaxPunkte, sumPunkte, transformBewertungsraster} from "../Helpers.js";
-    import {getEmptyBewertungsraster} from "../Helpers.js";
+    import {
+        calculateNote,
+        getEmptyBewertungsraster,
+        getFileName,
+        getMaxPunkte,
+        sumPunkte,
+        transformBewertungsraster
+    } from "../Helpers.js";
     import {getAll, set} from "../BewertungsrasterRepository.js"
 
     import Details from "./Details.svelte";
 
-    import metaInformationSchema from "../metaInformation.schema.json" with {type: "json"}
+    import bewertungsrasterSchema from "../bewertungsraster.schema.json" with {type: "json"}
+    import ImportExport from "./ImportExport.svelte";
 
     const featureFlags = {
         htmlPopup: false
-    }
-
-    function submitHandler(event) {
-        event.preventDefault();
-
-        const markdown = renderToMarkdown(currentBewertungsraster);
-        const filename = getFileName(name);
-
-        const html = renderToHtml(markdown);
-
-        if (featureFlags.htmlPopup) openHtmlPopup(html)
-        promptDownload(markdown, filename);
     }
 
     let currentBewertungsraster = $state();
 
     let name = $derived(currentBewertungsraster?.name);
 
-    const allBewertungsraster = $state(getAll());
+    let allBewertungsraster = $state(getAll());
 
     $effect(() => {
         set(allBewertungsraster);
@@ -57,7 +52,7 @@
         event.preventDefault();
         const nameInput = event.target.previousElementSibling;
 
-        currentBewertungsraster = getEmptyBewertungsraster(fields, metaInformationSchema);
+        currentBewertungsraster = getEmptyBewertungsraster(fields, bewertungsrasterSchema);
         currentBewertungsraster.name = nameInput.value;
 
         allBewertungsraster.push(currentBewertungsraster)
@@ -84,9 +79,20 @@
 
     }
 
+    function getDownloadHandler(event) {
+        event.preventDefault();
 
+        const markdown = renderToMarkdown(currentBewertungsraster);
+        const filename = getFileName(name);
 
+        const html = renderToHtml(markdown);
 
+        if (featureFlags.htmlPopup) openHtmlPopup(html)
+        promptDownload(markdown, filename);
+    }
+    function importCallback() {
+        allBewertungsraster = getAll();
+    }
 </script>
 
 <details>
@@ -108,6 +114,8 @@
             Punkte verwendet werden.</strong>
     </p>
 </details>
+
+
 
 <form class="student">
     <label for="name">Vorname Nachname</label>
@@ -139,21 +147,35 @@
             <form class="bewertung">
                 <fieldset>
                     <label for="name">
-                        Name
+                        Vorname Name*
                     </label>
-                    <input type="text" id="name" name="name" bind:value={currentBewertungsraster.name} />
+                    <input
+                            required
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Max Mustermann"
+                            bind:value={currentBewertungsraster.name}
+
+                    />
                     <label for="className">
-                        Klasse
+                        Klasse*
                     </label>
-                    <input type="text" id="className" name="className" bind:value={currentBewertungsraster.className} />
+                    <input
+                            required
+                            type="text"
+                            id="className"
+                            name="className"
+                            placeholder="z.B B-TEL-25-T-a"
+                            bind:value={currentBewertungsraster.className}/>
                     <label for="tutor">
                         Betreuer:in
                     </label>
-                    <input type="text" id="tutor" name="tutor" bind:value={currentBewertungsraster.tutor} />
+                    <input type="text" id="tutor" name="tutor" bind:value={currentBewertungsraster.tutor}/>
                     <label for="expert">
                         Expert:in
                     </label>
-                    <input type="text" id="expert" name="expert" bind:value={currentBewertungsraster.expert} />
+                    <input type="text" id="expert" name="expert" bind:value={currentBewertungsraster.expert}/>
                 </fieldset>
                 {#each fields as field}
                     <fieldset>
@@ -195,8 +217,11 @@
                     </fieldset>
                 {/each}
 
-                <button type="submit" onclick={submitHandler}>Bewertungsblatt generieren</button>
+                <button type="submit" onclick={getDownloadHandler}>Bewertungsblatt generieren</button>
             </form>
         {/key}
     </div>
 {/if}
+<ImportExport
+        {importCallback}
+></ImportExport>

@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "name",
+    "className"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "className": {
+      "type": "string"
+    },
+    "tutor": {
+      "type": "string"
+    },
+    "expert": {
+      "type": "string"
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "punkte": {
+              "type": "number"
+            },
+            "kommentar": {
+              "type": "string"
+            },
+            "max": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "punkte",
+            "kommentar",
+            "max"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  }
+}
