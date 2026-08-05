@@ -5,6 +5,7 @@
     import {openHtmlPopup, promptDownload} from "../OutputHandlers.js";
     import {renderToHtml} from "../renderToHtml.js";
     import {calculateNote, getFileName, getMaxPunkte, sumPunkte, transformBewertungsraster} from "../Helpers.js";
+    import Details from "./Details.svelte";
 
     const featureFlags = {
         htmlPopup: false
