@@ -5,7 +5,7 @@ export function getFileName(studentName) {
 }
 
 // convert to format suited for rendering
-export function convertData(data) {
+export function transformBewertungsraster(data) {
     return Object.entries(data).map(([sectionLabel, inputs]) => {
         return {
             section: sectionLabel,

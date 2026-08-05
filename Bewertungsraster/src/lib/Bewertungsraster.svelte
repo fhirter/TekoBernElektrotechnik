@@ -4,7 +4,7 @@
     import {renderToMarkdown} from "../renderToMarkdown.js";
     import {openHtmlPopup, promptDownload} from "../OutputHandlers.js";
     import {renderToHtml} from "../renderToHtml.js";
-    import {getMaxPunkte, calculateNote, convertData, getFileName, sumPunkte} from "../Helpers.js";
+    import {calculateNote, getFileName, getMaxPunkte, sumPunkte, transformBewertungsraster} from "../Helpers.js";
 
     const featureFlags = {
         htmlPopup: false
@@ -62,7 +62,7 @@
 
     const punkte = $derived.by(() => {
         const data = currentBewertungsraster.data;
-        const dataFields = convertData(data);
+        const dataFields = transformBewertungsraster(data);
         const punkte = sumPunkte(dataFields);
         const max = getMaxPunkte(fields);
         const note = calculateNote(punkte, max);
