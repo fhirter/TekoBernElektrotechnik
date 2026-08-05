@@ -1,15 +1,9 @@
 <script>
     import {fields} from "../fields.js";
-    import {
-        calculateNote,
-        convertData,
-        getMaxPunkte,
-        renderToMarkdown,
-        sumPunkte,
-        getFileName
-    } from "../renderToMarkdown.js";
+    import {renderToMarkdown} from "../renderToMarkdown.js";
     import {openHtmlPopup, promptDownload} from "../OutputHandlers.js";
     import {renderToHtml} from "../renderToHtml.js";
+    import {getMaxPunkte, calculateNote, convertData, getFileName, sumPunkte} from "../Helpers.js";
 
     const featureFlags = {
         htmlPopup: false
@@ -29,7 +23,6 @@
         {"punkte": 10, "bezeichnung": "tadellos"}
     ]
 
-    const max = getMaxPunkte(fields);
 
 
     function submitHandler(event) {
@@ -86,6 +79,7 @@
         const data = currentBewertungsraster.data;
         const dataFields = convertData(data);
         const punkte = sumPunkte(dataFields);
+        const max = getMaxPunkte(fields);
         const note = calculateNote(punkte, max);
         return {
             punkte,
