@@ -44,19 +44,17 @@
         promptDownload(markdown, filename);
     }
 
-    let currentBewertungsraster = $state({
-        name: "",
-        data: {},
-    });
-
-    currentBewertungsraster = getEmptyBewertungsraster(fields);
+    let currentBewertungsraster = $state(getEmptyBewertungsraster(fields));
 
     let name = $derived(currentBewertungsraster.name);
 
     function getEmptyBewertungsraster(fields) {
         const emptyBewertungsraster = {
-            name: "",
-            data: {}
+            studentName: "",
+            name: this.studentName,
+            tutor: "",
+            expert: "",
+            data: {},
         }
         for (const field of fields) {
             for (const input of field.inputs) {
