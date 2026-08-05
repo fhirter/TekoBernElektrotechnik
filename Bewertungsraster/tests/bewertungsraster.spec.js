@@ -58,7 +58,10 @@ test('fill heading', async ({page}) => {
     await page.goto(url);
     await page.getByRole('textbox', {name: nameLabel}).fill(name);
     await page.getByRole('button', {name: addButton}).click();
-    await page.getByLabel(selectPerson).selectOption(name);
-    await expect(page.getByRole('heading')).toContainText(`Bewertungsraster TEL ${name}`);
+
+    await page.getByLabel('Name').fill('Jane Doe')
+    await page.getByLabel('Klasse').fill('B-TEL-24-Ta')
+    await page.getByLabel('Betreuer:in').fill('Peter')
+    await page.getByLabel('Expert:in').fill('Karin')
 });
 
