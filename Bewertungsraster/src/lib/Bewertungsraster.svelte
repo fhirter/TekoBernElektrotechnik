@@ -5,7 +5,11 @@
     import {openHtmlPopup, promptDownload} from "../OutputHandlers.js";
     import {renderToHtml} from "../renderToHtml.js";
     import {calculateNote, getFileName, getMaxPunkte, sumPunkte, transformBewertungsraster} from "../Helpers.js";
+    import {getEmptyBewertungsraster} from "../Helpers.js";
+
     import Details from "./Details.svelte";
+
+    import metaInformationSchema from "../metaInformation.schema.json" with {type: "json"}
 
     const featureFlags = {
         htmlPopup: false
@@ -23,34 +27,9 @@
         promptDownload(markdown, filename);
     }
 
-    let currentBewertungsraster = $state(getEmptyBewertungsraster(fields));
+    let currentBewertungsraster = $state();
 
-    let name = $derived(currentBewertungsraster.name);
-
-    function getEmptyBewertungsraster(fields) {
-        const emptyBewertungsraster = {
-            studentName: "",
-            tutor: "",
-            expert: "",
-            data: {},
-        }
-        for (const field of fields) {
-            for (const input of field.inputs) {
-                emptyBewertungsraster.data = {
-                    ...emptyBewertungsraster.data,
-                    [field.label]: {
-                        ...emptyBewertungsraster.data[field.label],
-                        [input.label]: {
-                            "punkte": 0,
-                            "kommentar": "",
-                            "max": input.max
-                        }
-                    }
-                }
-            }
-        }
-        return emptyBewertungsraster;
-    }
+    let name = $derived(currentBewertungsraster?.name);
 
     const allBewertungsraster = $state([]);
 
@@ -61,6 +40,7 @@
     })
 
     const punkte = $derived.by(() => {
+        if (!currentBewertungsraster) return;
         const data = currentBewertungsraster.data;
         const dataFields = transformBewertungsraster(data);
         const punkte = sumPunkte(dataFields);
@@ -77,7 +57,7 @@
         event.preventDefault();
         const nameInput = event.target.previousElementSibling;
 
-        currentBewertungsraster = getEmptyBewertungsraster(fields)
+        currentBewertungsraster = getEmptyBewertungsraster(fields, metaInformationSchema);
         currentBewertungsraster.name = nameInput.value;
 
         allBewertungsraster.push(currentBewertungsraster)
@@ -157,6 +137,7 @@
             bind:value={name}
             onchange={selectBewertungsraster}
     >
+        <option></option>
         {#each allBewertungsraster as bewertung}
             <option>{bewertung.name}</option>
         {/each}
@@ -164,7 +145,7 @@
     <button onclick={deleteBewertungsraster}>Löschen</button>
 </form>
 
-{#if name !== ""}
+{#if typeof name !== "undefined"}
     <h1>Bewertungsraster TEL {name}</h1>
     <div>
         <ul>
@@ -185,9 +166,9 @@
                         {#each field.inputs as input}
                             <label for="{field.label}-{input.label}">
                                 <Details
-                                        value = "{input.label} <br>
+                                        value="{input.label} <br>
                                             ({currentBewertungsraster.data[field.label][input.label].punkte}/{currentBewertungsraster.data[field.label][input.label]['max']})"
-                                        description = "{input.description}"
+                                        description="{input.description}"
                                 ></Details>
                             </label>
                             <select

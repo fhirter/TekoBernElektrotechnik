@@ -1,7 +1,7 @@
 export function getFileName(studentName) {
     const timestamp = new Date().toISOString().slice(0, 16).replace('T', '_').replace(':', '');
 
-   return `${timestamp}_Bewertungsraster_Diplomarbeit_${studentName}.md`
+    return `${timestamp}_Bewertungsraster_Diplomarbeit_${studentName}.md`
 }
 
 // convert to format suited for rendering
@@ -20,6 +20,39 @@ export function transformBewertungsraster(data) {
             })
         }
     });
+}
+
+export function getEmptyBewertungsraster(fields, metaInformationSchema) {
+    const emptyBewertungsraster = fromSchema(metaInformationSchema);
+    for (const field of fields) {
+        for (const input of field.inputs) {
+            emptyBewertungsraster.data = {
+                ...emptyBewertungsraster.data,
+                [field.label]: {
+                    ...emptyBewertungsraster.data[field.label],
+                    [input.label]: {
+                        "punkte": 0,
+                        "kommentar": "",
+                        "max": input.max
+                    }
+                }
+            }
+        }
+    }
+    return emptyBewertungsraster;
+}
+
+function fromSchema(schema) {
+    if (schema.type === 'object') {
+        return Object.fromEntries(
+            Object.entries(schema.properties ?? {}).map(([key, value]) => [key, fromSchema(value)])
+        );
+    }
+    if (schema.type === 'array') return [];
+    if (schema.type === 'string') return '';
+    if (schema.type === 'number') return 0;
+    if (schema.type === 'boolean') return false;
+    return null;
 }
 
 export function sumPunkte(obj) {
