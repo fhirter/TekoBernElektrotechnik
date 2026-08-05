@@ -2,7 +2,7 @@ export const template = `
 ---
 title: {{title}}
 subtitle: {{subtitle}}
-author: {{studentName}}, {{className}}
+author: {{name}}, {{className}}
 date: {{date}}
 ---
 

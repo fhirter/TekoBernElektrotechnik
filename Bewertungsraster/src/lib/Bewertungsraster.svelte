@@ -18,8 +18,8 @@
 
     function submitHandler(event) {
         event.preventDefault();
-        const {data, name} = currentBewertungsraster;
-        const markdown = renderToMarkdown(data, {studentName: name});
+
+        const markdown = renderToMarkdown(currentBewertungsraster);
         const filename = getFileName(name);
 
         const html = renderToHtml(markdown);
@@ -137,6 +137,24 @@
 
         {#key currentBewertungsraster}
             <form class="bewertung">
+                <fieldset>
+                    <label for="name">
+                        Name
+                    </label>
+                    <input type="text" id="name" name="name" bind:value={currentBewertungsraster.name} />
+                    <label for="className">
+                        Klasse
+                    </label>
+                    <input type="text" id="className" name="className" bind:value={currentBewertungsraster.className} />
+                    <label for="tutor">
+                        Betreuer:in
+                    </label>
+                    <input type="text" id="tutor" name="tutor" bind:value={currentBewertungsraster.tutor} />
+                    <label for="expert">
+                        Expert:in
+                    </label>
+                    <input type="text" id="expert" name="expert" bind:value={currentBewertungsraster.expert} />
+                </fieldset>
                 {#each fields as field}
                     <fieldset>
                         <legend>
