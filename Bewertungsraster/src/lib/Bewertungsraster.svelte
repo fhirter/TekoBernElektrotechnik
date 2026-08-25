@@ -76,7 +76,7 @@
         const index = allBewertungsraster.findIndex((bewertungsraster) => bewertungsraster.name === name);
         allBewertungsraster.splice(index, 1);
         set(allBewertungsraster);
-
+        currentBewertungsraster = undefined;
     }
 
     function getDownloadHandler(event) {
