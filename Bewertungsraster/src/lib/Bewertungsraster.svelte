@@ -104,7 +104,10 @@
     </p>
     <p>
         Wenn die Bewertung abgeschlossen ist, kann mit dem Button "Bewertungsblatt generieren" ganz unten das
-        Markdown-Dokument generiert werden. In diesem Dokument sind sämtliche Daten des Formulars enthalten.
+        Markdown-Dokument generiert werden oder sämtliche erfassten Daten mit Click auf den Button "Exportieren"
+        exportiert werden. <br>
+        Die daraus generierten JSON Daten lassen sich wieder importieren. Duplikate (gleicher Name,
+        gleiche Klasse) werden übersprungen.
     </p>
     <p>
         Alle Daten werden ausschliesslich lokal im Browser gespeichert. Ein zentrales Backup wird nicht erstellt.
