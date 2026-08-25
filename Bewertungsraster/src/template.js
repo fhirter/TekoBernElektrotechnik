@@ -8,8 +8,8 @@ date: {{date}}
 
 - Note: {{note}}
 - Punkte: {{punkte}}/{{max}}
-- Betreuer: {{tutor}}
-- Experte: {{expert}}
+- Betreuer:in: {{tutor}}
+- Expert:in: {{expert}}
 
 {{#sections}}
 ## {{section}}
