@@ -24,7 +24,7 @@
         reader.onload = (e) => {
             const data = e.target.result;
             const error = importData(data);
-            if (error) alert(`An error occured: ${error.message}`, error);
+            if (error) alert(error.message);
 
             importCallback();
         };

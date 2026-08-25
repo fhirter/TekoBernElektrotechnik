@@ -26,18 +26,28 @@ export function ImportService({set, getAll}) {
             }
         }
 
-        if (errors.length > 0) return new AggregateError(errors)
+        if (errors.length > 0) return new AggregateError(errors);
 
         const all = getAll();
 
         // remove duplicates
-        const filteredData = parsedData.filter((importedBewertungsraster) => all.every((storedBewertungsraster) => !hasCollision(storedBewertungsraster, importedBewertungsraster)))
-
+        const filteredData = parsedData.filter((importedBewertungsraster) => all.every((storedBewertungsraster) => !hasCollision(storedBewertungsraster, importedBewertungsraster)));
+        const collisions = parsedData
+            .filter((importedBewertungsraster) => all.some((storedBewertungsraster) => hasCollision(storedBewertungsraster, importedBewertungsraster)))
+            .map((bewertungsraster) => {
+                return {
+                    name: bewertungsraster.name,
+                    className: bewertungsraster.className
+                }
+            });
         all.push(...filteredData);
 
         set(all);
 
-        if (filteredData.length < parsedData.length) return new Error(`${parsedData.length - filteredData.length} duplicates detected.`)
+        if (filteredData.length < parsedData.length) {
+            const message = `Folgende Duplikate (gleicher Name, gleiche Klasse) wurden übersprungen:\n${collisions.map((collision) => `- ${collision.name}, ${collision.className}`).join('\n')}`;
+            return new Error(message)
+        }
     }
 
     return importData
