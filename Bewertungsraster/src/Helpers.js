@@ -1,6 +1,5 @@
 export function getFileName(studentName) {
-    const timestamp = new Date().toISOString().slice(0, 16).replace('T', '_').replace(':', '');
-
+const timestamp = new Date(new Date() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16).replace('T', '_').replace(':', '');
     return `${timestamp}_Bewertungsraster_Diplomarbeit_${studentName}.md`
 }
 
