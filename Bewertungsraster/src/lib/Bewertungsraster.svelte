@@ -10,7 +10,8 @@
         getFileName,
         getMaxPunkte,
         sumPunkte,
-        transformBewertungsraster
+        transformBewertungsraster,
+        isEqual,
     } from "../Helpers.js";
     import {getAll, set} from "../BewertungsrasterRepository.js"
 
@@ -73,7 +74,7 @@
 
         if (!confirm(`Möchten sie ${name} wirklich löschen?`)) return;
 
-        const index = allBewertungsraster.findIndex((bewertungsraster) => bewertungsraster.name === name);
+        const index = allBewertungsraster.findIndex((bewertungsraster) =>  isEqual(bewertungsraster, currentBewertungsraster));
         allBewertungsraster.splice(index, 1);
         set(allBewertungsraster);
         currentBewertungsraster = undefined;
