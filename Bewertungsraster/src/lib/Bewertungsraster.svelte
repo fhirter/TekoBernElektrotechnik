@@ -90,6 +90,7 @@
         if (featureFlags.htmlPopup) openHtmlPopup(html)
         promptDownload(markdown, filename);
     }
+
     function importCallback() {
         allBewertungsraster = getAll();
     }
@@ -114,8 +115,6 @@
             Punkte verwendet werden.</strong>
     </p>
 </details>
-
-
 
 <form class="student">
     <label for="name">Vorname Nachname</label>
