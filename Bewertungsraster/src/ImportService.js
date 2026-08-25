@@ -1,13 +1,11 @@
 import Ajv from "ajv";
 
 import schema from "./bewertungsraster.schema.json" with {type: "json"}
+import {isEqual} from "./Helpers.js";
 
 export function ImportService({set, getAll}) {
     const ajv = new Ajv();
 
-    function hasCollision(a, b) {
-        return a.name === b.name && a.className === b.className
-    }
 
     function importData(data) {
         let parsedData;
@@ -31,9 +29,9 @@ export function ImportService({set, getAll}) {
         const all = getAll();
 
         // remove duplicates
-        const filteredData = parsedData.filter((importedBewertungsraster) => all.every((storedBewertungsraster) => !hasCollision(storedBewertungsraster, importedBewertungsraster)));
+        const filteredData = parsedData.filter((importedBewertungsraster) => all.every((storedBewertungsraster) => !isEqual(storedBewertungsraster, importedBewertungsraster)));
         const collisions = parsedData
-            .filter((importedBewertungsraster) => all.some((storedBewertungsraster) => hasCollision(storedBewertungsraster, importedBewertungsraster)))
+            .filter((importedBewertungsraster) => all.some((storedBewertungsraster) => isEqual(storedBewertungsraster, importedBewertungsraster)))
             .map((bewertungsraster) => {
                 return {
                     name: bewertungsraster.name,

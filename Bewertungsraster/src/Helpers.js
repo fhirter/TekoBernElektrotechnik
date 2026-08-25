@@ -84,3 +84,7 @@ export function getMaxPunkte(fields) {
 export function calculateNote(punkte, max) {
     return Math.min(6, Math.round((punkte / max * 5 + 1) * 10) / 10);
 }
+
+export function isEqual(a, b) {
+        return a.name === b.name && a.className === b.className
+    }
